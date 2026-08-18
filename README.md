@@ -14,6 +14,6 @@ What's next? I don't know, probably a new website project or something to put my
 ![Markdown](https://skillicons.dev/icons?i=md)&nbsp;
 ![VSCode](https://skillicons.dev/icons?i=vscode)&nbsp;
 ![WebStorm](https://skillicons.dev/icons?i=webstorm)&nbsp;
-[![GitHub](https://skillicons.dev/icons?i=github)](https://github.com/korbi20)&nbsp;
+[![GitHub](https://skillicons.dev/icons?i=github)](https://github.com/K0RBI02)&nbsp;
 [![Discord](https://skillicons.dev/icons?i=discord)](https://discord.com/users/993948513270497412) 
 <br clear="right"/>
