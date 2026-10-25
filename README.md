@@ -8,6 +8,8 @@ What started as "playing around" has turned into an obsession. Right now, I'm di
 
 What's next? I don't know, probably a new website project or something to put my (hopefully) new Python skills to use.
 
+Outside of web dev, I build small tools for daily routines, mostly so my commute stops surprising me.
+
 #### Tools I use daily
 ![Bash](https://skillicons.dev/icons?i=bash)&nbsp;
 ![Git](https://skillicons.dev/icons?i=git)&nbsp;
