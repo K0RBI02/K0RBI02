@@ -112,32 +112,25 @@ def render(data, theme):
     W = 350
     font = "-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif"
 
-    # Legend: lay items out in centred rows.
-    legend, rows, row, row_w = [], [], [], 0
-    max_w = W - 20
-    for i, (lang, share) in enumerate(data):
-        label = f"{lang} {share * 100:.0f}%"
-        w = 18 + len(label) * 7.4 + 18  # dot + text estimate + gap
-        if row and row_w + w > max_w:
-            rows.append((row, row_w))
-            row, row_w = [], 0
-        row.append((lang, share, label, w, colour_for(lang, i)))
-        row_w += w
-    if row:
-        rows.append((row, row_w))
-
+    # Legend: fixed 3-column grid, so rows line up regardless of label length.
+    cols = 3
+    labels = [f"{lang} {share * 100:.0f}%" for lang, share in data]
+    # Column width = widest label in that column (rough text estimate) + dot + gap.
+    col_w = [max((18 + len(l) * 7.6 for l in labels[c::cols]), default=0) + 18 for c in range(cols)]
+    col_x = [(W - sum(col_w) + 18) / 2 + sum(col_w[:c]) for c in range(cols)]
+    legend = []
     y = 22
-    for row, row_w in rows:
-        x = (W - row_w + 18) / 2
-        for lang, share, label, w, col in row:
-            name, pct = label.rsplit(" ", 1)
-            legend.append(
-                f'<circle cx="{x + 6:.1f}" cy="{y - 4.5}" r="6" fill="{col}"/>'
-                f'<text x="{x + 18:.1f}" y="{y}" fill="{t["text"]}">{name} '
-                f'<tspan fill="{t["muted"]}">{pct}</tspan></text>'
-            )
-            x += w
-        y += 26
+    for i, (lang, share) in enumerate(data):
+        c = i % cols
+        if i and c == 0:
+            y += 26
+        x = col_x[c]
+        legend.append(
+            f'<circle cx="{x + 6:.1f}" cy="{y - 4.5}" r="6" fill="{colour_for(lang, i)}"/>'
+            f'<text x="{x + 18:.1f}" y="{y}" fill="{t["text"]}">{lang} '
+            f'<tspan fill="{t["muted"]}">{share * 100:.0f}%</tspan></text>'
+        )
+    y += 26
 
     # Donut
     cx, cy, r_out, r_in = W / 2, y + 125, 120, 66
