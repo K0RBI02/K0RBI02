@@ -6,12 +6,13 @@
 
 ### Hey there 👋
 
-I'm a hobby web developer.
+I build things for the web, mostly while losing yet another argument with CSS.
 
-What started as "playing around" has turned into an obsession. Right now, I'm diving into Python within Fedora workflow. At the same time, I'm wrestling with CSS to ensure that my projects not only function well but also look good. 
+Not everything gets that kind of effort, though. The small tools that make my everyday life easier are honestly more vibe coded than hand-written, and I'm fine with that as long as they do their job.
 
-What's next? I don't know, probably a new website project or something to put my (hopefully) new Python skills to use.
-<br>Outside of web dev, I build small tools for daily routines, mostly so my commute stops surprising me.
+Most of those tools come from what I do away from the browser: tinkering with Fedora, my home network and Home Assistant, usually until something breaks and I have to figure out how to fix it again.
+
+Which is probably why there's always one more side project than planned, even if most of them never leave my laptop.
 
 #### Tools I use daily
 ![Bash](https://skillicons.dev/icons?i=bash)&nbsp;
