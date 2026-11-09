@@ -21,7 +21,9 @@ import urllib.request
 from pathlib import Path
 
 USER = os.getenv("GH_USER", "K0RBI02")
-TOKEN = os.getenv("GITHUB_TOKEN", "")
+# LANG_TOKEN (personal token) also sees private repos; GITHUB_TOKEN only public ones.
+PRIVATE_TOKEN = os.getenv("LANG_TOKEN", "")
+TOKEN = PRIVATE_TOKEN or os.getenv("GITHUB_TOKEN", "")
 TOP_N = int(os.getenv("TOP_N", "5"))
 EXCLUDE_LANGS = {s.strip().lower() for s in os.getenv("EXCLUDE_LANGS", "").split(",") if s.strip()}
 EXCLUDE_REPOS = {s.strip().lower() for s in os.getenv("EXCLUDE_REPOS", "").split(",") if s.strip()}
@@ -63,11 +65,16 @@ def collect():
     totals = {}
     page = 1
     while True:
-        repos = api(f"https://api.github.com/users/{USER}/repos?per_page=100&type=owner&page={page}")
+        if PRIVATE_TOKEN:
+            url = f"https://api.github.com/user/repos?per_page=100&affiliation=owner&visibility=all&page={page}"
+        else:
+            url = f"https://api.github.com/users/{USER}/repos?per_page=100&type=owner&page={page}"
+        repos = api(url)
         if not repos:
             break
         for repo in repos:
-            if repo["fork"] or repo["name"].lower() in EXCLUDE_REPOS:
+            if (repo["fork"] or repo["owner"]["login"].lower() != USER.lower()
+                    or repo["name"].lower() in EXCLUDE_REPOS):
                 continue
             for lang, size in api(repo["languages_url"]).items():
                 if lang.lower() in EXCLUDE_LANGS:
