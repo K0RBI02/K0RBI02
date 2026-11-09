@@ -124,20 +124,24 @@ def render(data, theme):
     labels = [f"{lang} {share * 100:.0f}%" for lang, share in data]
     # Column width = widest label in that column (rough text estimate) + dot + gap.
     col_w = [max((18 + len(l) * 7.6 for l in labels[c::cols]), default=0) + 18 for c in range(cols)]
-    col_x = [(W - sum(col_w) + 18) / 2 + sum(col_w[:c]) for c in range(cols)]
+    legend_w = sum(col_w) - 18
+    # Shrink the whole legend if it would be wider than the image.
+    scale = min(1.0, (W - 8) / legend_w) if legend_w else 1.0
+    offset_x = (W - legend_w * scale) / 2
     legend = []
     y = 22
     for i, (lang, share) in enumerate(data):
         c = i % cols
         if i and c == 0:
             y += 26
-        x = col_x[c]
+        x = sum(col_w[:c])
         legend.append(
             f'<circle cx="{x + 6:.1f}" cy="{y - 4.5}" r="6" fill="{colour_for(lang, i)}"/>'
             f'<text x="{x + 18:.1f}" y="{y}" fill="{t["text"]}">{lang} '
             f'<tspan fill="{t["muted"]}">{share * 100:.0f}%</tspan></text>'
         )
-    y += 26
+    legend_transform = f"translate({offset_x:.2f},0) scale({scale:.3f})"
+    y = (y + 26) * scale
 
     # Donut
     cx, cy, r_out, r_in = W / 2, y + 125, 120, 66
@@ -159,7 +163,7 @@ def render(data, theme):
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
         f'role="img" aria-label="Most used languages">'
         f'<title>Most used languages</title>'
-        f'<g font-family="{font}" font-size="13">{"".join(legend)}</g>'
+        f'<g transform="{legend_transform}" font-family="{font}" font-size="13">{"".join(legend)}</g>'
         f'{"".join(segs)}</svg>\n'
     )
 
