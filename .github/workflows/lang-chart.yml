@@ -25,6 +25,7 @@ jobs:
       - name: Generate chart
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LANG_TOKEN: ${{ secrets.LANG_TOKEN }}   # optional: includes private repos
           GH_USER: ${{ github.repository_owner }}
           TOP_N: "5"
           EXCLUDE_LANGS: ""        # e.g. "Jupyter Notebook,Dockerfile"
