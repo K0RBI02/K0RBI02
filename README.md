@@ -1,7 +1,7 @@
 <picture> 
   <source media="(prefers-color-scheme: dark)" srcset="assets/langs-dark.svg"> 
   <source media="(prefers-color-scheme: light)" srcset="assets/langs-light.svg"> 
-  <img src="assets/langs-light.svg" style="float: right;" width="350" alt="Most used languages"> 
+  <img src="assets/langs-light.svg" align="right" width="350" alt="Most used languages">
 </picture>
 
 ### Hey there 👋
