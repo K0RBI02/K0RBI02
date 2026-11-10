@@ -1,5 +1,3 @@
-<br><br>
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/langs-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/langs-light.svg">
